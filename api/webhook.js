@@ -7,6 +7,7 @@
 const { db, BOT, API } = require("./lib/firebase");
 const { Timestamp } = require("firebase-admin/firestore");
 const { escapeMarkdown } = require("./lib/escape");
+const { safeEquals } = require("./lib/auth");
 
 // ── FIREBASE ADMIN INIT (see api/lib/firebase.js) ──
 
@@ -239,6 +240,7 @@ async function handleCallback(cb) {
   // Registration
   if (data.startsWith("register:")) {
     const userId = data.split(":")[1];
+    if (!["mike", "jenna"].includes(userId)) return;
     await registerUser(chatId, userId, cb.from);
     const name = userId === "mike" ? "Mike" : "Jenna";
     await editMsg(chatId, msgId, `You're all set, ${name}! 🎉\n\nCommands:\n/quick — instant log\n/log — full entry\n/history — recent logs\n/preset — update defaults`);
@@ -1388,6 +1390,11 @@ module.exports = async (req, res) => {
   }
 
   if (req.method !== "POST") return res.status(200).json({ ok: true });
+
+  // Verify the request actually came from Telegram (secret_token set via setWebhook)
+  if (!safeEquals(req.headers["x-telegram-bot-api-secret-token"], process.env.TELEGRAM_WEBHOOK_SECRET)) {
+    return res.status(401).json({ ok: false, error: "Unauthorized" });
+  }
 
   try {
     const update = req.body;

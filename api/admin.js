@@ -7,6 +7,7 @@
 
 const { db, BOT, API } = require("./lib/firebase");
 const { Timestamp }     = require("firebase-admin/firestore");
+const { safeEquals }    = require("./lib/auth");
 
 
 // ── HANDLER ──
@@ -14,7 +15,7 @@ module.exports = async (req, res) => {
   const key = req.query.key;
 
   // Gate
-  if (!key || key !== process.env.ADMIN_KEY) {
+  if (!safeEquals(key, process.env.ADMIN_KEY)) {
     return res.status(404).send("Not found");
   }
 

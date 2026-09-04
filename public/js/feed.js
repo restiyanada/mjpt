@@ -9,7 +9,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 import {
-  $, showToast, relativeDate, formatTime,
+  $, showToast, relativeDate, formatTime, escapeHtml,
   BRISTOL, STOOL_COLORS, formatSymptoms, formatVolume, USERS
 } from "/js/utils.js";
 
@@ -233,7 +233,7 @@ function buildLogItem(log) {
     <div class="hi-body">
       <div class="hi-who ${log.user}">${user.name}</div>
       <div class="hi-desc">${bristol.label} · ${vol}${hasSymp ? " · " + log.symptoms.map(s => s.charAt(0).toUpperCase()+s.slice(1)).join(", ") : ""}</div>
-      ${log.notes ? `<div class="hi-meta" style="font-style:italic;color:var(--color-ink-soft)">"${log.notes}"</div>` : ""}
+      ${log.notes ? `<div class="hi-meta" style="font-style:italic;color:var(--color-ink-soft)">"${escapeHtml(log.notes)}"</div>` : ""}
     </div>
     <div class="hi-right">
       <div class="hi-time">${time}</div>
@@ -300,7 +300,7 @@ function showLogDetail(log) {
 
       ${log.notes ? `<div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:12px;padding:12px;margin-bottom:10px">
         <div style="font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--color-ink-faint);margin-bottom:4px">Notes</div>
-        <div style="font-size:13px;color:var(--color-ink);font-style:italic;line-height:1.5">"${log.notes}"</div>
+        <div style="font-size:13px;color:var(--color-ink);font-style:italic;line-height:1.5">"${escapeHtml(log.notes)}"</div>
       </div>` : ""}
 
       <div style="background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:12px;padding:12px">

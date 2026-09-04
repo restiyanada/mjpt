@@ -311,6 +311,12 @@ export const TITLE_CRITERIA = [
 export function $(selector)  { return document.querySelector(selector); }
 export function $$(selector) { return document.querySelectorAll(selector); }
 
+const HTML_ESCAPES = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+export function escapeHtml(str) {
+  if (!str) return str;
+  return String(str).replace(/[&<>"']/g, c => HTML_ESCAPES[c]);
+}
+
 export function showToast(msg, duration = 2500) {
   const toast = document.getElementById("toast");
   if (!toast) return;

@@ -7,6 +7,7 @@
 
 const { db }   = require("./lib/firebase");
 const { Timestamp } = require("firebase-admin/firestore");
+const { safeEquals } = require("./lib/auth");
 
 
 // ── COMPOSITION → BRISTOL TYPE ──
@@ -133,7 +134,7 @@ function parseCSV(raw) {
 module.exports = async (req, res) => {
   // Gate with admin key
   const key = req.query.key;
-  if (!key || key !== process.env.ADMIN_KEY) {
+  if (!safeEquals(key, process.env.ADMIN_KEY)) {
     return res.status(404).send("Not found");
   }
 
@@ -145,7 +146,7 @@ module.exports = async (req, res) => {
 
   // POST — process import
   if (req.method === "POST") {
-    const { user, csv } = req.body;
+    const { user, csv, preview } = req.body;
 
     if (!user || !["mike", "jenna"].includes(user)) {
       return res.status(400).json({ error: "Invalid user. Must be mike or jenna." });
@@ -160,6 +161,22 @@ module.exports = async (req, res) => {
 
       if (entries.length === 0) {
         return res.status(400).json({ error: "No valid entries found in CSV." });
+      }
+
+      if (preview) {
+        return res.json({
+          ok:      true,
+          user,
+          preview: true,
+          count:   entries.length,
+          sample:  entries.slice(0, 3).map(e => ({
+            date:        e.timestamp.toDate().toISOString(),
+            bristolType: e.bristolType,
+            color:       e.color,
+            symptoms:    e.symptoms,
+            notes:       e.notes
+          }))
+        });
       }
 
       // Write in batches of 500 (Firestore limit)

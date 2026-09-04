@@ -1,0 +1,54 @@
+rules_version = '2';
+
+// Deploy with: firebase deploy --only firestore:rules
+//
+// The web app (index.html/feed.html/settings.html) reads and writes
+// Firestore straight from the client SDK with no Firebase Auth session,
+// so these rules cannot distinguish Mike/Jenna from any other visitor who
+// has the project's public apiKey. What they DO enforce: writes are
+// limited to well-formed documents in the collections the client
+// legitimately touches, existing logs can't be edited or deleted from the
+// client, and every other collection (sessions, reminder_logs, and
+// anything else) is server-only, reachable only via the Admin SDK used by
+// api/webhook.js, api/cron.js, api/admin.js and api/import.js, which
+// bypasses these rules entirely.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /logs/{logId} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasAll(['user', 'bristolType', 'timestamp'])
+                    && request.resource.data.user in ['mike', 'jenna']
+                    && request.resource.data.bristolType is int
+                    && request.resource.data.bristolType >= 1
+                    && request.resource.data.bristolType <= 7
+                    && (!('notes' in request.resource.data)
+                        || (request.resource.data.notes is string && request.resource.data.notes.size() <= 500));
+      allow update, delete: if false;
+    }
+
+    match /config/settings {
+      allow read: if true;
+      allow write: if request.resource.data.keys().hasOnly(['mike', 'jenna']);
+    }
+
+    // Telegram chat-id link — written only by the bot (Admin SDK).
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Server-only collections.
+    match /sessions/{sessionId} {
+      allow read, write: if false;
+    }
+    match /reminder_logs/{logId} {
+      allow read, write: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
