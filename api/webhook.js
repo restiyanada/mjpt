@@ -448,7 +448,6 @@ async function handleLogCallback(chatId, msgId, user, field, value) {
   if (field === "notes") {
     session.data.notes = value === "skip" ? "" : value;
     await saveLog(chatId, session.data, msgId);
-    await setSession(chatId, session);
     return;
   }
 }
