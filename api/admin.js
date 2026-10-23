@@ -263,8 +263,8 @@ function adminHTML(key) {
       <div class="page-sub">Overview of logs and users</div>
       <div class="stat-grid">
         <div class="stat-box"><div class="stat-num" id="sTotal">--</div><div class="stat-lbl">Total logs</div></div>
-        <div class="stat-box"><div class="stat-num" id="sMike">--</div><div class="stat-lbl">Mike logs</div></div>
-        <div class="stat-box"><div class="stat-num" id="sJenna">--</div><div class="stat-lbl">Jenna logs</div></div>
+        <div class="stat-box"><div class="stat-num" id="sMike">--</div><div class="stat-lbl">Ryan logs</div></div>
+        <div class="stat-box"><div class="stat-num" id="sJenna">--</div><div class="stat-lbl">Cia logs</div></div>
       </div>
       <div class="card"><div class="card-label">Telegram</div><div id="usersList">Loading...</div></div>
       <button class="btn btn-ghost btn-sm" onclick="loadStats()">Refresh</button>
@@ -275,8 +275,8 @@ function adminHTML(key) {
       <div class="card">
         <div class="card-label">Quick trigger</div>
         <div class="btn-row">
-          <button class="btn btn-primary" onclick="triggerReminder('mike')">Send to Mike</button>
-          <button class="btn btn-primary" onclick="triggerReminder('jenna')">Send to Jenna</button>
+          <button class="btn btn-primary" onclick="triggerReminder('mike')">Send to Ryan</button>
+          <button class="btn btn-primary" onclick="triggerReminder('jenna')">Send to Cia</button>
           <button class="btn btn-ghost" onclick="triggerReminder('both')">Both</button>
         </div>
       </div>
@@ -285,8 +285,8 @@ function adminHTML(key) {
         <label>Message</label>
         <input id="customMsg" placeholder="Hey! Don't forget to log..." />
         <div class="btn-row">
-          <button class="btn btn-ghost btn-sm" onclick="triggerCustom('mike')">Mike</button>
-          <button class="btn btn-ghost btn-sm" onclick="triggerCustom('jenna')">Jenna</button>
+          <button class="btn btn-ghost btn-sm" onclick="triggerCustom('mike')">Ryan</button>
+          <button class="btn btn-ghost btn-sm" onclick="triggerCustom('jenna')">Cia</button>
         </div>
       </div>
       <div class="result" id="reminderResult">Results here.</div>
@@ -311,7 +311,7 @@ function adminHTML(key) {
       <div class="page-sub">One message per line — picked randomly.</div>
       <div class="card">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
-          <div><label>User</label><select id="wordingUser"><option value="mike">Mike</option><option value="jenna">Jenna</option></select></div>
+          <div><label>User</label><select id="wordingUser"><option value="mike">Ryan</option><option value="jenna">Cia</option></select></div>
           <div><label>Type</label><select id="wordingType"><option value="auto">Scheduled</option><option value="manual">Manual</option></select></div>
         </div>
         <label>Messages</label>
@@ -425,7 +425,7 @@ function buildAdminJS(key) {
     "    var html='';",
     "    users.forEach(function(u){",
     "      var linked=u.chatId==='\\u2713 linked';",
-    "      html+='<div class=\"user-row\"><div><div class=\"user-name\">'+(u.id==='mike'?'Mike':'Jenna')+'</div>'",
+    "      html+='<div class=\"user-row\"><div><div class=\"user-name\">'+(u.id==='mike'?'Ryan':'Cia')+'</div>'",
     "        +'<div class=\"user-sub\">'+(u.telegramUsername?'@'+u.telegramUsername:'No username')+'&middot;'+u.logs+' logs</div></div>'",
     "        +'<span class=\"pill '+(linked?'pill-good':'pill-mute')+'\">'+(linked?'Linked':'Not linked')+'</span></div>';",
     "    });",
@@ -508,7 +508,7 @@ function buildAdminJS(key) {
     "    data.logs.forEach(function(l){",
     "      var syms=l.symptoms&&!l.symptoms.includes('none')?' &middot; '+l.symptoms.join(', '):'';",
     "      html+='<div class=\"log-row\"><div class=\"log-main\"><div>'",
-    "        +'<div class=\"log-detail\">'+(l.user==='mike'?'Mike':'Jenna')+'&middot;T'+l.bristolType+'&middot;'+(l.volume||'normal')+'&middot;'+(l.color||'brown')+syms+'</div>'",
+    "        +'<div class=\"log-detail\">'+(l.user==='mike'?'Ryan':'Cia')+'&middot;T'+l.bristolType+'&middot;'+(l.volume||'normal')+'&middot;'+(l.color||'brown')+syms+'</div>'",
     "        +'<div class=\"log-meta\">'+(l.timestamp||'--')+(l.notes?' &middot;'+l.notes:'')+'</div>'",
     "        +'<div class=\"log-id\">'+l.id+'</div>'",
     "        +'</div><button class=\"btn btn-danger btn-sm\" onclick=\"doDelete(this.dataset.id)\" data-id=\"'+l.id+'\">Del</button>'",

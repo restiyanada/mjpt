@@ -356,10 +356,10 @@ function renderBarChart() {
   const legend = $("#chartLegend");
   legend.innerHTML = "";
   if (showMike) {
-    legend.innerHTML += `<div class="legend-item"><div class="legend-dot" style="background:var(--color-ink)"></div><span>Mike</span></div>`;
+    legend.innerHTML += `<div class="legend-item"><div class="legend-dot" style="background:var(--color-ink)"></div><span>Ryan</span></div>`;
   }
   if (showJenna) {
-    legend.innerHTML += `<div class="legend-item"><div class="legend-dot" style="background:var(--color-accent)"></div><span>Jenna</span></div>`;
+    legend.innerHTML += `<div class="legend-item"><div class="legend-dot" style="background:var(--color-accent)"></div><span>Cia</span></div>`;
   }
 
   for (let i = 0; i < days; i++) {
@@ -388,7 +388,7 @@ function renderBarChart() {
   }
 
   const sub = $("#chartSubLabel");
-  const user = currentUser === "both" ? "Combined" : currentUser === "mike" ? "Mike" : "Jenna";
+  const user = currentUser === "both" ? "Combined" : currentUser === "mike" ? "Ryan" : "Cia";
   sub.textContent = `${user} — past 7 days`;
 }
 
@@ -632,7 +632,7 @@ function renderDuel(mikeLogs, jennaLogs) {
     const info      = scoreLabel(score);
     const label     = info?.label || "No data";
     const bristol   = topBristol ? (BRISTOL[topBristol]?.label || "—") : "—";
-    const userName  = user === "mike" ? "Mike" : "Jenna";
+    const userName  = user === "mike" ? "Ryan" : "Cia";
 
     return `
       <div class="duel-side">
@@ -709,9 +709,9 @@ function renderHeadToHead(mikeLogs, jennaLogs) {
 
   // Header
   table.innerHTML = `<tr>
-    <td class="hth-val" style="color:var(--color-ink);font-weight:700">Mike</td>
+    <td class="hth-val" style="color:var(--color-ink);font-weight:700">Ryan</td>
     <td class="hth-label">Metric</td>
-    <td class="hth-val" style="color:var(--color-accent);font-weight:700">Jenna</td>
+    <td class="hth-val" style="color:var(--color-accent);font-weight:700">Cia</td>
   </tr>`;
 
   rows.forEach(row => {
@@ -916,7 +916,7 @@ function renderCombinedInsights(mikeLogs, jennaLogs) {
 
   if (mikeScore !== null && jennaScore !== null) {
     const diff = Math.abs(mikeScore - jennaScore);
-    const leader = mikeScore >= jennaScore ? "Mike" : "Jenna";
+    const leader = mikeScore >= jennaScore ? "Ryan" : "Cia";
     if (diff >= 15) {
       insights.push({ type:"note", text:`<strong>${leader} is leading by ${diff} points.</strong> The gap is mainly driven by consistency and symptom frequency.` });
     } else {
@@ -932,9 +932,9 @@ function renderCombinedInsights(mikeLogs, jennaLogs) {
   if (mikeHard >= 2 && jennaHard >= 2) {
     insights.push({ type:"note", text:`<strong>Both of you had hard stools this period.</strong> Might be a shared diet or lifestyle factor — check hydration and fibre.` });
   } else if (mikeHard >= 2) {
-    insights.push({ type:"note", text:`<strong>Mike had ${mikeHard} hard stools.</strong> More water and fibre should help.` });
+    insights.push({ type:"note", text:`<strong>Ryan had ${mikeHard} hard stools.</strong> More water and fibre should help.` });
   } else if (jennaHard >= 2) {
-    insights.push({ type:"note", text:`<strong>Jenna had ${jennaHard} hard stools.</strong> Remind her to stay hydrated.` });
+    insights.push({ type:"note", text:`<strong>Cia had ${jennaHard} hard stools.</strong> Remind her to stay hydrated.` });
   }
 
   if (mikeLoose >= 2 && jennaLoose >= 2) {
@@ -943,8 +943,8 @@ function renderCombinedInsights(mikeLogs, jennaLogs) {
 
   const mikeBlood  = mikeLogs.some(l  => l.symptoms?.includes("blood"));
   const jennaBlood = jennaLogs.some(l => l.symptoms?.includes("blood"));
-  if (mikeBlood)  insights.push({ type:"note", text:`<strong>Mike logged blood this period.</strong> Monitor closely — if it recurs, see a doctor.` });
-  if (jennaBlood) insights.push({ type:"note", text:`<strong>Jenna logged blood this period.</strong> Monitor closely — if it recurs, see a doctor.` });
+  if (mikeBlood)  insights.push({ type:"note", text:`<strong>Ryan logged blood this period.</strong> Monitor closely — if it recurs, see a doctor.` });
+  if (jennaBlood) insights.push({ type:"note", text:`<strong>Cia logged blood this period.</strong> Monitor closely — if it recurs, see a doctor.` });
 
   if (insights.length === 0) {
     insights.push({ type:"good", text:"<strong>No major concerns this period.</strong> Keep up the good work, both of you!" });
