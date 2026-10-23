@@ -11,8 +11,8 @@
 export const DISPLAY_TZ = "Asia/Makassar"; // WITA UTC+8
 
 export const USERS = {
-  mike:  { name: "Mike",  color: "#c05a30", tz: "Australia/Melbourne" },
-  jenna: { name: "Jenna", color: "#3d7a52", tz: "Asia/Makassar" }
+  mike:  { name: "Ryan",  color: "#c05a30", tz: "Australia/Melbourne" },
+  jenna: { name: "Cia", color: "#3d7a52", tz: "Asia/Makassar" }
 };
 
 
@@ -292,17 +292,17 @@ export const TITLE_CRITERIA = [
   { title: "See a Doctor",       criteria: "Blood detected in any log" },
   { title: "Waterfall Mode",     criteria: "40%+ logs are Liquid (Type 7)" },
   { title: "The Rock Collection",criteria: "50%+ logs are Pellet or Rock (Type 1–2)" },
-  { title: "Five-a-Day Champion",criteria: "Average 6+ logs per day (Jenna)" },
-  { title: "The Overachiever",   criteria: "Average 6+ logs per day (Mike)" },
+  { title: "Five-a-Day Champion",criteria: "Average 6+ logs per day (Cia)" },
+  { title: "The Overachiever",   criteria: "Average 6+ logs per day (Ryan)" },
   { title: "The Ghost Pooper",   criteria: "Less than 1 log every 2 days" },
   { title: "Rough Patch",        criteria: "50%+ logs have symptoms" },
   { title: "Needs More Fibre",   criteria: "30%+ logs have symptoms" },
   { title: "Consistency King/Queen", criteria: "70%+ logs are Soft (Type 4)" },
   { title: "Smooth Operator",    criteria: "50%+ logs are Soft (Type 4)" },
-  { title: "Prolific Pooper",    criteria: "Average 3+ logs/day (Jenna)" },
-  { title: "Daily Achiever",     criteria: "Average 3+ logs/day (Mike)" },
-  { title: "The Reliable One",   criteria: "Healthy default (Mike)" },
-  { title: "Gut Powerhouse",     criteria: "Healthy default (Jenna)" }
+  { title: "Prolific Pooper",    criteria: "Average 3+ logs/day (Cia)" },
+  { title: "Daily Achiever",     criteria: "Average 3+ logs/day (Ryan)" },
+  { title: "The Reliable One",   criteria: "Healthy default (Ryan)" },
+  { title: "Gut Powerhouse",     criteria: "Healthy default (Cia)" }
 ];
 
 
@@ -512,16 +512,16 @@ export function generateStory(mikeStats, jennaStats, syncRate, period) {
   const mikeLogsWord = `${mikeStats.total} time${mikeStats.total !== 1 ? "s" : ""}`;
   sentences.push(
     mikeStats.total === 0
-      ? `Mike didn't log ${periodWord}.`
-      : `Mike logged ${mikeLogsWord} ${periodWord} and ${describe(mikeStats)}.`
+      ? `Ryan didn't log ${periodWord}.`
+      : `Ryan logged ${mikeLogsWord} ${periodWord} and ${describe(mikeStats)}.`
   );
 
   // Sentence 2 — Jenna
   const jennaLogsWord = `${jennaStats.total} time${jennaStats.total !== 1 ? "s" : ""}`;
   sentences.push(
     jennaStats.total === 0
-      ? `Jenna didn't log ${periodWord}.`
-      : `Jenna logged ${jennaLogsWord} and ${describe(jennaStats)}.`
+      ? `Cia didn't log ${periodWord}.`
+      : `Cia logged ${jennaLogsWord} and ${describe(jennaStats)}.`
   );
 
   // Sentence 3 — Specific health observation (scaled to period)
@@ -529,13 +529,13 @@ export function generateStory(mikeStats, jennaStats, syncRate, period) {
   const looseThreshold = period === "today" ? 1 : period === "week" ? 2 : 3;
 
   if (mikeStats.hardCount >= hardThreshold) {
-    sentences.push(`Mike had ${mikeStats.hardCount} hard stool${mikeStats.hardCount > 1 ? "s" : ""} — more water and fibre could help.`);
+    sentences.push(`Ryan had ${mikeStats.hardCount} hard stool${mikeStats.hardCount > 1 ? "s" : ""} — more water and fibre could help.`);
   } else if (jennaStats.hardCount >= hardThreshold) {
-    sentences.push(`Jenna had ${jennaStats.hardCount} hard stool${jennaStats.hardCount > 1 ? "s" : ""} — remind her to stay hydrated.`);
+    sentences.push(`Cia had ${jennaStats.hardCount} hard stool${jennaStats.hardCount > 1 ? "s" : ""} — remind her to stay hydrated.`);
   } else if (mikeStats.looseCount >= looseThreshold) {
-    sentences.push(`Mike had ${mikeStats.looseCount} loose stool${mikeStats.looseCount > 1 ? "s" : ""} — worth watching diet and stress.`);
+    sentences.push(`Ryan had ${mikeStats.looseCount} loose stool${mikeStats.looseCount > 1 ? "s" : ""} — worth watching diet and stress.`);
   } else if (jennaStats.looseCount >= looseThreshold) {
-    sentences.push(`Jenna had ${jennaStats.looseCount} loose stool${jennaStats.looseCount > 1 ? "s" : ""} — check for food triggers.`);
+    sentences.push(`Cia had ${jennaStats.looseCount} loose stool${jennaStats.looseCount > 1 ? "s" : ""} — check for food triggers.`);
   }
 
   // Sentence 4 — Sync (skip for "today")

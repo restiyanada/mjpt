@@ -267,14 +267,14 @@ function importHTML(key) {
 
   <div class="warning">
     ⚠️ This will permanently add data to Firestore. Run once per user.<br>
-    Make sure to import Mike's file for Mike and Jenna's file for Jenna.
+    Make sure to import Ryan's file for Ryan and Cia's file for Cia.
   </div>
 
   <div class="section">
     <label>User</label>
     <select id="userSelect">
-      <option value="mike">Mike</option>
-      <option value="jenna">Jenna</option>
+      <option value="mike">Ryan</option>
+      <option value="jenna">Cia</option>
     </select>
   </div>
 

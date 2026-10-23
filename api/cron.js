@@ -11,8 +11,8 @@ const { db, BOT, API } = require("./lib/firebase");
 const { Timestamp }     = require("firebase-admin/firestore");
 
 const USERS_CONFIG = {
-  mike:  { tz: "Australia/Melbourne", name: "Mike"  },
-  jenna: { tz: "Asia/Makassar",       name: "Jenna" }
+  mike:  { tz: "Australia/Melbourne", name: "Ryan"  },
+  jenna: { tz: "Asia/Makassar",       name: "Cia" }
 };
 
 const BRISTOL = {
@@ -22,16 +22,16 @@ const BRISTOL = {
 
 const DEFAULT_REMINDERS = {
   mike:  [
-    "Hey Mike! No logs yet today. How's the gut doing?",
-    "Mike — daily check-in. Nothing logged yet today!",
-    "Your gut data is missing for today, Mike. Log now?",
-    "Mike, how's the gut? No logs recorded yet today 👀"
+    "Hey Ryan! No logs yet today. How's the gut doing?",
+    "Ryan — daily check-in. Nothing logged yet today!",
+    "Your gut data is missing for today, Ryan. Log now?",
+    "Ryan, how's the gut? No logs recorded yet today 👀"
   ],
   jenna: [
-    "Hey Jenna! No logs yet today. How's the gut going?",
-    "Jenna — daily check-in. Nothing logged yet today!",
-    "Your gut data is missing for today, Jenna. Log now?",
-    "Jenna, how's the gut? No logs recorded yet today 👀"
+    "Hey Cia! No logs yet today. How's the gut going?",
+    "Cia — daily check-in. Nothing logged yet today!",
+    "Your gut data is missing for today, Cia. Log now?",
+    "Cia, how's the gut? No logs recorded yet today 👀"
   ]
 };
 

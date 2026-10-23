@@ -161,8 +161,8 @@ async function handleStart(chatId, existingUser) {
   console.log("Sending registration message to:", chatId);
   const result = await sendMsg(chatId, "Hey! Welcome to mjpt 💩\n\nWho are you?", [
     [
-      { text: "Mike",  callback_data: "register:mike"  },
-      { text: "Jenna", callback_data: "register:jenna" }
+      { text: "Ryan",  callback_data: "register:mike"  },
+      { text: "Cia", callback_data: "register:jenna" }
     ]
   ]);
   console.log("sendMsg result:", JSON.stringify(result));
@@ -242,7 +242,7 @@ async function handleCallback(cb) {
     const userId = data.split(":")[1];
     if (!["mike", "jenna"].includes(userId)) return;
     await registerUser(chatId, userId, cb.from);
-    const name = userId === "mike" ? "Mike" : "Jenna";
+    const name = userId === "mike" ? "Ryan" : "Cia";
     await editMsg(chatId, msgId, `You're all set, ${name}! 🎉\n\nCommands:\n/quick — instant log\n/log — full entry\n/history — recent logs\n/preset — update defaults`);
     return;
   }
@@ -858,7 +858,7 @@ function buildObs({ t, b, isHard, isSoft, isLoose, isCrackle, isBlob,
 async function notifyPartner(loggedBy, bristolType, volume, symptoms, localHour, logsToday) {
   try {
     const partnerKey = loggedBy === "mike" ? "jenna" : "mike";
-    const name       = loggedBy === "mike" ? "Mike" : "Jenna";
+    const name       = loggedBy === "mike" ? "Ryan" : "Cia";
     const b          = BRISTOL[parseInt(bristolType)] || BRISTOL[4];
     const vol        = formatVolume(volume);
     const syms       = symptoms || ["none"];

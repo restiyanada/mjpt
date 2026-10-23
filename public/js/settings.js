@@ -14,12 +14,12 @@ import { $, showToast, BRISTOL, STOOL_COLORS, VOLUMES } from "/js/utils.js";
 // ── DEFAULTS ──
 const DEFAULTS = {
   mike: {
-    name:     "Mike",
+    name:     "Ryan",
     reminder: { time: "20:00", frequency: "daily", days: [] },
     preset:   { bristolType: 4, color: "brown", symptoms: ["none"] }
   },
   jenna: {
-    name:     "Jenna",
+    name:     "Cia",
     reminder: { time: "20:00", frequency: "daily", days: [] },
     preset:   { bristolType: 4, color: "brown", symptoms: ["none"] }
   }
@@ -68,8 +68,8 @@ async function loadSettings() {
 // ── RENDER ──
 function renderSettings() {
   // Names
-  el("mikeNameDisplay").textContent  = settings.mike?.name  || "Mike";
-  el("jennaNameDisplay").textContent = settings.jenna?.name || "Jenna";
+  el("mikeNameDisplay").textContent  = settings.mike?.name  || "Ryan";
+  el("jennaNameDisplay").textContent = settings.jenna?.name || "Cia";
 
   // Reminders
   el("mikeReminderDisplay").textContent  = formatReminder(settings.mike?.reminder,  "Melbourne");
@@ -137,7 +137,7 @@ function safe(id, fn) {
 
 // ── EDIT NAME ──
 async function editName(user) {
-  const current = settings[user]?.name || (user === "mike" ? "Mike" : "Jenna");
+  const current = settings[user]?.name || (user === "mike" ? "Ryan" : "Cia");
   const name    = prompt(`Enter display name for ${current}:`, current);
   if (!name || name.trim() === current) return;
   settings[user].name = name.trim();
